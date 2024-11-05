@@ -1,8 +1,8 @@
-import dbConnect from "@/app/config/dbconnect";
+import dbConnect from "@/config/dbconnect";
 import { NextResponse } from "next/server";
 import User from "@/models/user";
 import bcrypt from "bcryptjs";
-import { sendVerificationEmail } from "@/app/helpers/sendVerificationEmail";
+import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
 export const POST = async (req) => {
   await dbConnect();
   try {
