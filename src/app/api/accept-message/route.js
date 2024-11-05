@@ -7,7 +7,7 @@ export const POST = async (req) => {
   try {
     await dbConnect();
     const session = await getServerSession(authOptions);
-    const user = session.user;
+    const user = session?.user;
     if (!session || !user) {
       return NextResponse.json(
         { message: "Not Authenticated", success: false },
@@ -44,7 +44,7 @@ export const GET = async (req) => {
   try {
     await dbConnect();
     const session = await getServerSession(authOptions);
-    const user = session.user;
+    const user = session?.user;
     if (!session || !user) {
       return NextResponse.json(
         { message: "Not Authenticated", success: false },
