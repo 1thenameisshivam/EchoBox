@@ -9,7 +9,10 @@ export const POST = async (req) => {
     const result = verifySchema.safeParse({ code });
     if (!result.success) {
       return NextResponse.json(
-        { message: result.error.format().code?._errors || [], success: false },
+        {
+          message: result.error.format().code?._errors[0] || [],
+          success: false,
+        },
         { status: 400 }
       );
     }

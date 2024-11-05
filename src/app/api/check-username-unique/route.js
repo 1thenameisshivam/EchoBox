@@ -21,7 +21,7 @@ export const GET = async (req) => {
     if (!result.success) {
       return NextResponse.json(
         {
-          message: result.error.format().username?._errors || [],
+          message: result.error.format().username?._errors[0] || [],
           success: false,
         },
         { status: 400 }

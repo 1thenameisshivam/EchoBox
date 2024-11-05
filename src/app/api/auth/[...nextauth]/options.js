@@ -40,15 +40,6 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.isVerified = token.isVerified;
-        session.user.isAcceptingMessages = token.isAcceptingMessages;
-        session.user.username = token.username;
-      }
-      return session;
-    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user._id;
@@ -57,6 +48,15 @@ export const authOptions = {
         token.username = user.username;
       }
       return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.isVerified = token.isVerified;
+        session.user.isAcceptingMessages = token.isAcceptingMessages;
+        session.user.username = token.username;
+      }
+      return session;
     },
   },
   pages: {
