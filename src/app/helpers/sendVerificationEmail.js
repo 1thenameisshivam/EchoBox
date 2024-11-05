@@ -11,9 +11,9 @@ export const sendVerificationEmail = async (email, verifyCode, username) => {
       subject: "echobox || verification code",
       react: VerificationEmail({ username, otp: verifyCode }),
     });
-    return { sucess: true, message: "Verification email sent" };
+    return { success: true, message: "Verification email sent" };
   } catch (error) {
     console.log(error.message);
-    return { sucess: false, message: "Error sending verification email" };
+    return { success: false, message: "Error sending verification email" };
   }
 };
