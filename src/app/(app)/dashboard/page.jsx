@@ -48,7 +48,7 @@ function UserDashboard() {
       setIsSwitchLoading(false);
       try {
         const response = await axios.get("/api/get-messages");
-        console.log(response);
+
         setMessages(response.data.messages || []);
         if (refresh) {
           toast.success("Showing latest messages");

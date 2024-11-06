@@ -1,25 +1,36 @@
-import UserModel from "@/model/User";
+import User from "@/models/user";
 import { getServerSession } from "next-auth/next";
-import dbConnect from "@/lib/dbConnect";
+import dbConnect from "@/config/dbconnect";
 import { NextResponse } from "next/server";
 import { authOptions } from "../../auth/[...nextauth]/options";
 
-export async function DELETE(request, { params }) {
-  const messageId = params.messageid;
-  await dbConnect();
-  const session = await getServerSession(authOptions);
-  const _user = session?.user;
-  if (!session || !_user) {
+export async function DELETE(request, context) {
+  // Await params as it is async in Next.js
+  const { messageid } = await context.params;
+
+  if (!messageid) {
     return NextResponse.json(
-      { success: false, message: "Not authenticated" },
+      { success: false, message: "Message ID is required" },
+      { status: 400 }
+    );
+  }
+
+  await dbConnect();
+
+  const session = await getServerSession(authOptions);
+  if (!session || !session.user) {
+    return NextResponse.json(
+      { success: false, message: "User not authenticated" },
       { status: 401 }
     );
   }
 
+  const userId = session.user.id;
+
   try {
-    const updateResult = await UserModel.updateOne(
-      { _id: _user._id },
-      { $pull: { messages: { _id: messageId } } }
+    const updateResult = await User.updateOne(
+      { _id: userId },
+      { $pull: { messages: { _id: messageid } } }
     );
 
     if (updateResult.modifiedCount === 0) {
@@ -30,13 +41,13 @@ export async function DELETE(request, { params }) {
     }
 
     return NextResponse.json(
-      { message: "Message deleted", success: true },
+      { message: "Message deleted successfully", success: true },
       { status: 200 }
     );
   } catch (error) {
     console.error("Error deleting message:", error);
     return NextResponse.json(
-      { message: "Error deleting message", success: false },
+      { message: "Server error while deleting message", success: false },
       { status: 500 }
     );
   }
