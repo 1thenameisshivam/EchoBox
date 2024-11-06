@@ -23,6 +23,12 @@ export const POST = async (req) => {
         { status: 404 }
       );
     }
+    if (user.isVerified) {
+      return NextResponse.json(
+        { message: "User already verified", success: false },
+        { status: 400 }
+      );
+    }
     const isCodeValid = user.verifyCode === code;
     const isCodeExpired = new Date(user.verifyCodeExpires) > new Date();
     if (!isCodeValid || !isCodeExpired) {
@@ -38,7 +44,7 @@ export const POST = async (req) => {
 
     await user.save();
     return NextResponse.json(
-      { message: "User verified successfully", success: true },
+      { message: "User verification successfully", success: true },
       { status: 200 }
     );
   } catch (err) {
