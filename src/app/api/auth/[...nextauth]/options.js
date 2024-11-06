@@ -16,7 +16,7 @@ export const authOptions = {
         await dbConnect();
         try {
           const user = await User.findOne({
-            email: credentials.identifier.email,
+            email: credentials.identifier,
           });
           if (!user) {
             throw new Error("invalid credentials");
