@@ -17,11 +17,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
-import { useToast } from "@/components/ui/use-toast";
-
+import { toast } from "sonner";
 export function MessageCard({ message, onMessageDelete }) {
-  const { toast } = useToast();
-
   const handleDeleteConfirm = async () => {
     try {
       const response = await axios.delete(`/api/delete-message/${message._id}`);
@@ -36,7 +33,7 @@ export function MessageCard({ message, onMessageDelete }) {
     <Card className="card-bordered">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle>{message.content}</CardTitle>
+          <CardTitle>{message.messages}</CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="destructive">

@@ -12,8 +12,7 @@ export async function middleware(request) {
     token &&
     (url.pathname === "/signin" ||
       url.pathname === "/signup" ||
-      url.pathname === "/verify" ||
-      url.pathname === "/")
+      url.pathname === "/verify")
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }

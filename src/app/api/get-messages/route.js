@@ -5,7 +5,7 @@ import dbConnect from "@/config/dbconnect";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
-export const POST = async (req) => {
+export const GET = async (req) => {
   try {
     await dbConnect();
     const session = await getServerSession(authOptions);
@@ -17,13 +17,13 @@ export const POST = async (req) => {
       );
     }
     const userId = new mongoose.Types.ObjectId(user.id);
-    const getUser = await User.aggregate(
+    const getUser = await User.aggregate([
       { $match: { _id: userId } },
       { $unwind: "$messages" },
       { $sort: { "messages.createdAt": -1 } },
-      { $group: { _id: "$_id", messages: { $push: "$messages" } } }
-    );
-    if (!messages || messages.length === 0) {
+      { $group: { _id: "$_id", messages: { $push: "$messages" } } },
+    ]);
+    if (!getUser || getUser.length === 0) {
       return NextResponse.json(
         { message: "No messages found", success: false },
         { status: 404 }
@@ -37,7 +37,7 @@ export const POST = async (req) => {
   } catch (err) {
     console.log(err);
     return NextResponse.json(
-      { message: "error in accepting messages", success: false },
+      { message: "error in getting messages", success: false },
       { status: 500 }
     );
   }

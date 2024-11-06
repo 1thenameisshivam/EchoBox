@@ -1,6 +1,6 @@
 import dbConnect from "@/config/dbconnect";
 import User from "@/models/user";
-
+import { NextResponse } from "next/server";
 export const POST = async (req) => {
   try {
     await dbConnect();
@@ -18,7 +18,7 @@ export const POST = async (req) => {
         { status: 400 }
       );
     }
-    user.messages.push({ content, createdAt: new Date() });
+    user.messages.push({ message: content, createdAt: new Date() });
     await user.save();
     return NextResponse.json({
       message: "Message sent successfully",

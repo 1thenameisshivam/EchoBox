@@ -28,7 +28,7 @@ export const POST = async (req) => {
       );
     }
     return NextResponse.json({
-      message: "Messages accepted successfully",
+      message: `Messages accepting ${acceptMessages ? "on" : "off"} `,
       success: true,
     });
   } catch (err) {
