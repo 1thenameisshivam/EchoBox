@@ -10,17 +10,20 @@ export async function middleware(request) {
   const url = request.nextUrl;
   if (
     token &&
-    (url.pathname.startsWith("/signup") ||
-      url.pathname.startsWith("/signin") ||
-      url.pathname.startsWith("/verify") ||
-      url.pathname.startsWith("/"))
+    (url.pathname === "/signin" ||
+      url.pathname === "/signup" ||
+      url.pathname === "/verify" ||
+      url.pathname === "/")
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
+
+  // Redirect unauthenticated users trying to access protected pages
   if (!token && url.pathname.startsWith("/dashboard")) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
+  // Proceed as usual if no redirects are needed
   return NextResponse.next();
 }
 
