@@ -79,7 +79,7 @@ const Signup = () => {
       const res = await axios.post("/api/signup", data);
 
       toast.success(res.data.message);
-      router.replace(`/veify/${userName}`);
+      router.replace(`/verify/${userName}`);
       setIsSubmitting(false);
     } catch (error) {
       setIsSubmitting(false);

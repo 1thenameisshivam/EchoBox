@@ -29,6 +29,7 @@ export const POST = async (req) => {
         { status: 400 }
       );
     }
+
     const isCodeValid = user.verifyCode === code;
     const isCodeExpired = new Date(user.verifyCodeExpires) > new Date();
     if (!isCodeValid || !isCodeExpired) {
