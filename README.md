@@ -1,6 +1,6 @@
 # EchoBox: Anonymous Feedback Platform
 
-![EchoBox Logo](/echobox.png)
+![EchoBox Logo](./public/echobox.png)
 
 ## 🔊 About EchoBox
 
