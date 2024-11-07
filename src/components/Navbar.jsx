@@ -10,9 +10,12 @@ function Navbar() {
   const user = session?.user;
 
   return (
-    <nav className="p-4 md:p-6 shadow-md bg-gray-900 text-white">
+    <nav className="p-4 sticky top-0 z-50 backdrop-blur-md shadow-md bg-black/90 text-white">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <a href="#" className="text-xl font-bold mb-4 md:mb-0">
+        <a
+          href="#"
+          className="text-xl bg-clip-text text-transparent bg-gradient-to-l from-violet-800 to-purple-600 font-bold mb-4 md:mb-0"
+        >
           Echo box
         </a>
         {session ? (
