@@ -187,14 +187,16 @@ export default function Home() {
             Join thousands of users who are already benefiting from honest,
             anonymous communication with EchoBox.
           </p>
-          <Button
-            size="lg"
-            variant="secondary"
-            className="text-lg px-8 rounded-full"
-          >
-            Start Your Free Trial
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
+          <Link href={"/dashboard"}>
+            <Button
+              size="lg"
+              variant="secondary"
+              className="text-lg px-8 rounded-full"
+            >
+              Start Taking Feedback
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
         </div>
       </section>
 
